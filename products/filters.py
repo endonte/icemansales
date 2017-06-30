@@ -1,14 +1,14 @@
-import django_filters
-
+import django_filters as filters
+from django_tables2 import SingleTableView
 from .models import Products, Category
 
-class ProductFilters(django_filters.FilterSet):
+class ProductFilter(filters.FilterSet):
     class Meta:
         model = Products
-        fields = ('category', 'product_name', 'uom',)
+        fields = ['product_name', 'category', 'uom']
 
-class CategoryFilters(django_filters.FilterSet):
+class CategoryFilter(filters.FilterSet):
 
     class Meta:
         model = Category
-        fields = ('category_name',)
+        fields = ['category_name']

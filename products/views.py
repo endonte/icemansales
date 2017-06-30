@@ -4,15 +4,10 @@ from django_tables2 import RequestConfig
 from .models import Products, Category
 from .tables import ProductTable, CategoryTable
 from .forms import ProductForm, CategoryForm
-
-#def category(request):
-#    form = CategoryForm()
-#    categories = CategoryTable(Category.objects.all().order_by('category_name'))
-#    RequestConfig(request, paginate={'per_page': 25}).configure(categories)
-#    return render(request, 'products/category.html', {'categories': categories, 'form': form})
+from .filters import ProductFilter, CategoryFilter
 
 def products(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ProductForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
@@ -20,9 +15,11 @@ def products(request):
             return redirect('products')
     else:
         form = ProductForm()
-        products_list = ProductTable(Products.objects.all().order_by('product_name'))
-        RequestConfig(request, paginate={'per_page': 25}).configure(products_list)
-    return render(request, 'products/products.html', {'products_list': products_list, 'form': form})
+        queryset = Products.objects.select_related().all()
+        f = ProductFilter(request.GET, queryset=queryset)
+        table = ProductTable(f.qs)
+        RequestConfig(request, paginate={"per_page": 25, "page": 1}).configure(table)
+    return render(request, 'products/products.html', {'table': table, 'filter': f, 'form': form})
 
 def category(request):
     if request.method == "POST":
@@ -33,6 +30,8 @@ def category(request):
             return redirect('category')
     else:
         form = CategoryForm()
-        categories = CategoryTable(Category.objects.all().order_by('category_name'))
-        RequestConfig(request, paginate={'per_page': 25}).configure(categories)
-    return render(request, 'products/category.html', {'categories': categories, 'form': form})
+        queryset = Category.objects.select_related().all()
+        f = CategoryFilter(request.GET, queryset=queryset)
+        table = CategoryTable(f.qs)
+        RequestConfig(request, paginate={"per_page": 25, "page": 1}).configure(table)
+    return render(request, 'products/category.html', {'table': table, 'filter': f, 'form': form})

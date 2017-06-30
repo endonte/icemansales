@@ -4,12 +4,12 @@
 {% block content %}
 
   <div class="data">
-    {% render_table products_list %}
+    {% render_table table %}
   </div>
 
   <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
+        <button type="submit" class="save btn btn-default">Add Product</button>
   </form>
 
 {% endblock %}
