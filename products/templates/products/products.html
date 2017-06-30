@@ -1,0 +1,34 @@
+{% extends 'products/base.html' %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+
+  <div class="data">
+    {% render_table products %}
+<!--
+      <table class="table-striped">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Product</th>
+            <th>Category</th>
+            <th>UOM</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for product in products %}
+          <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.product_name }}</td>
+            <td>{{ product.category.category_name }}</td>
+            <td>{{ product.uom }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+-->
+  </div>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'products/base.html' %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+
+  <div class="data">
+    {% render_table categories %}
+  </div>
+
+{% endblock %}
