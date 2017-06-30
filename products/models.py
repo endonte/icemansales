@@ -1,7 +1,7 @@
 from django.db import models
 
 class Category(models.Model):
-    category_name = models.CharField(max_length=200)
+    category_name = models.CharField(max_length=200, verbose_name='Category Name')
 
     def add(self):
         self.save()
@@ -10,9 +10,9 @@ class Category(models.Model):
         return self.category_name
 
 class Products(models.Model):
-    product_name = models.CharField(max_length=200)
-    category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    uom = models.CharField(max_length=200)
+    product_name = models.CharField(max_length=200, verbose_name='Product Name')
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='Category')
+    uom = models.CharField(max_length=200, verbose_name='UOM')
 
     def add(self):
         self.save()

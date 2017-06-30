@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'products',
     'sales',
     'django_tables2',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

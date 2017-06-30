@@ -4,31 +4,12 @@
 {% block content %}
 
   <div class="data">
-    {% render_table products %}
-<!--
-      <table class="table-striped">
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>Product</th>
-            <th>Category</th>
-            <th>UOM</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {% for product in products %}
-          <tr>
-            <td>{{ product.id }}</td>
-            <td>{{ product.product_name }}</td>
-            <td>{{ product.category.category_name }}</td>
-            <td>{{ product.uom }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-
-      </table>
--->
+    {% render_table products_list %}
   </div>
+
+  <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+  </form>
 
 {% endblock %}
